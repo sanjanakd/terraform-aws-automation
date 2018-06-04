@@ -1,0 +1,47 @@
+{
+  "builders" : [
+    {
+      "access_key" : "{{user `aws_access_key`}}",
+      "secret_key" : "{{user `aws_secret_key`}}",
+      "region" : "{{user `aws_region`}}",
+      "ami_name" : "apache-tomcat-0.1",
+      "instance_type" : "{{user `aws_instance_type`}}",
+      "source_ami": "{{user `aws_ami_image`}}",
+      "ssh_username" : "ec2-user",
+      "tags" : {
+                 "Name":"apache-tomcat-{{user `image-version`}}",
+                 "Description":"Image for apache tomcat"
+             },
+      "type" : "amazon-ebs"
+
+    }
+
+  ],
+
+  "provisioners" : [
+    {
+      "type" : "file",
+      "source" : "./welcome.txt",
+      "destination" : "/home/ec2-user/"
+    },
+
+    {
+      "type" : "shell",
+      "inline":[
+        "ls -al /home/ec2-user",
+        "cat /home/ec2-user/welcome.txt"
+      ]
+    },
+
+    {
+      "type": "shell",
+      "script": "./example.sh"
+    },
+
+    {
+      "type" : "ansible",
+      "playbook_file" : "playbook/main.yml"
+    }
+  ]
+
+}

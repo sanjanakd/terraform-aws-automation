@@ -1,0 +1,9 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- hosts: tag_name_myAppInstance
+  remote_user: sudo
+  become: true
+
+  roles:
+       - apache-tomcat

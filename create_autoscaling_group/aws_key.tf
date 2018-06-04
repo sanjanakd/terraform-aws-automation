@@ -1,0 +1,4 @@
+resource "aws_key_pair" "developer" {
+  key_name = "developer-key"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDmG9tJta7haiHKVBUMPw6xV1KqN5ZigVcAmklgNOTThlsVulPX4Fz4RL57lSs2Rm5fAYNz3pwNd+uAiIHchjKqlwzXwcCT1jcOynvcUlPFMFghRh8VOWnuwRknRHM+dlbiHztVm/+cjzZqD37o9suQCHqeLL/Ns/N0wBLKV8dg+gyZXpRnJgqVyywGoI48STjz3YdTsxZyvBL2rw+5aqtEg6xg0OQthg8m217dLJ8+maMmlFYnO8MTjpMm8HeCY8cwU+IGqAtp1AjRb7NuSo0OahKVsYKNAPEcD3+SQKAKm6LWoffvjsRmaY/7p0ub3Cfxcs/epZcF+j3XAHltEefF aws_terraform_ssh_key"
+}
