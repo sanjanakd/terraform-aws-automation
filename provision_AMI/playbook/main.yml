@@ -1,0 +1,10 @@
+#!/usr/bin/env ansible-playbook
+---
+#https://github.com/inforedaster/ansible-tomcat-ubuntu/blob/master/roles/tomcat8/tasks/main.yml
+#https://github.com/migibert/terraform-role/blob/master/tasks/main.yml
+- hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+       - apache-tomcat

@@ -1,0 +1,78 @@
+#- name: Create tomcat group
+#  group:
+#    state: present
+#    name: tomcat
+#  sudo: yes
+#
+#- name: Create directory for tomcat
+#  file:
+#    path: /opt/tomcat
+#    state: directory
+
+- name: Download Tomcat
+  get_url: url=http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.8/bin/apache-tomcat-8.5.8.tar.gz dest=/tmp/apache-tomcat-8.5.8.tar.gz
+
+- name: Extract archive
+  command: chdir=/usr/share /bin/tar xvf /tmp/apache-tomcat-8.5.8.tar.gz -C /tmp/ creates=/tmp/apache-tomcat-8.5.8
+
+#- name: Symlink install directory
+#  file: src=/tmp/apache-tomcat-8.5.8 path=/usr/share/tomcat state=link
+
+#- name: change tomcat directory permissions
+#  file:
+#    path: /opt/tomcat
+#    state: directory
+#    owner: tomcat
+#    group: tomcat
+#    recurse: yes
+
+
+- name: Install add-apt-repostory
+  become: yes
+  apt: name=software-properties-common state=latest
+
+- name: Add Oracle Java Repository
+  #become: yes
+  apt_repository: repo='ppa:webupd8team/java'
+  sudo: yes
+
+- name: Accept Java 8 License
+  become: yes
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+- name: Install Oracle Java 8
+  become: yes
+  apt: name={{item}} state=latest
+  with_items:
+    - oracle-java8-installer
+    - ca-certificates
+    - oracle-java8-set-default
+
+- name: Create directory for terraform.
+  file:
+    path: /usr/local/share/terraform/0.11.7
+    mode: 0755
+    state: directory
+
+- name: Install unzip to unarchive terraform
+  apt:
+    name: unzip
+    state: present
+
+- name: Download terraform binary.
+  command: wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip --directory-prefix=/tmp/
+
+
+- name: Unarchive terraform zip.
+  unarchive:
+    copy: no
+    src:  /tmp/terraform_0.11.7_linux_amd64.zip
+    dest: /usr/local/share/terraform/0.11.7
+    creates: /usr/local/share/terraform/0.11.7/terraform
+    mode: 0755
+
+- name: Set symlink to /usr/local/bin/terraform.
+  file:
+    state: link
+    src: /usr/local/share/terraform/0.11.7/terraform
+    dest: /usr/local/bin/terraform

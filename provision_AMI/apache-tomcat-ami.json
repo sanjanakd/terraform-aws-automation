@@ -1,0 +1,32 @@
+{
+  "builders" : [
+    {
+      "access_key" : "{{user `aws_access_key`}}",
+      "secret_key" : "{{user `aws_secret_key`}}",
+      "region" : "{{user `aws_region`}}",
+      "ami_name" : "apache-tomcat-{{timestamp}}",
+      "instance_type" : "{{user `aws_instance_type`}}",
+      "source_ami": "{{user `aws_ami_image`}}",
+      "ssh_username" : "ubuntu",
+      "user_data_file": "userData.sh",
+      "tags" : {
+                 "Name":"apache-tomcat-{{user `image-version`}}",
+                 "Description":"Image for apache tomcat"
+             },
+      "type" : "amazon-ebs"
+
+    }
+
+  ],
+
+  "provisioners" : [
+
+    {
+      "type" : "ansible",
+      "playbook_file" : "playbook/main.yml",
+      "user": "ubuntu",
+      "extra_arguments":["--extra-vars","ansible_python_interpreter=/usr/bin/python3"]
+    }
+  ]
+
+}
