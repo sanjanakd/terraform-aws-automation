@@ -9,7 +9,7 @@ import subprocess
 sqs = boto3.resource('sqs', region_name='us-east-1')
 
 queue = sqs.get_queue_by_name(QueueName='stack-destroyer-message-queue')
-consume= True
+consume = True
 
 while consume:
     messages = queue.receive_messages(WaitTimeSeconds=5, MaxNumberOfMessages=5)
@@ -18,11 +18,15 @@ while consume:
         message.delete()
         loaded_json = json.loads(message.body)
         print ("Message EC2InstanceId: {0}".format(loaded_json['EC2InstanceId']))
-        var = loaded_json['LifecycleTransition']
-        if var == 'autoscaling:EC2_INSTANCE_TERMINATING':
-            subprocess.call(['./destroy.sh'])
-            consume=False
-            break
+        if 'LifecycleTransition' in loaded_json:
+            var = loaded_json['LifecycleTransition']
+            if var == 'autoscaling:EC2_INSTANCE_TERMINATING':
+                subprocess.call(['./destroy.sh'])
+                consume = False
+                break
+            else:
+                print("keep consuming")
+                continue
         else:
             print("keep consuming")
             continue
