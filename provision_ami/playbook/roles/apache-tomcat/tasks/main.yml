@@ -48,6 +48,22 @@
     - ca-certificates
     - oracle-java8-set-default
 
+- name: Ensure that Python2 packages are installed
+  apt:
+    pkg: "{{item}}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 1800
+  with_items:
+      - python
+      - python-pip
+#
+#- pip:
+#    name: botocore
+#
+#- pip:
+#    name: boto3
+
 - name: Create directory for terraform.
   file:
     path: /usr/local/share/terraform/0.11.7
@@ -62,7 +78,6 @@
 - name: Download terraform binary.
   command: wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip --directory-prefix=/tmp/
 
-
 - name: Unarchive terraform zip.
   unarchive:
     copy: no
@@ -76,3 +91,11 @@
     state: link
     src: /usr/local/share/terraform/0.11.7/terraform
     dest: /usr/local/bin/terraform
+
+- name: copy user data script on instance
+  copy:
+    src: userData.sh
+    dest: /home/ubuntu/userData.sh
+
+- name: Changing perm of "/home/ubuntu/userData.sh", adding "+x"
+  file: dest=/home/ubuntu/userData.sh mode=a+x

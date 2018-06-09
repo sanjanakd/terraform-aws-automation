@@ -8,7 +8,6 @@
       "instance_type" : "{{user `aws_instance_type`}}",
       "source_ami": "{{user `aws_ami_image`}}",
       "ssh_username" : "ubuntu",
-      "user_data_file": "userData.sh",
       "tags" : {
                  "Name":"apache-tomcat-{{user `image-version`}}",
                  "Description":"Image for apache tomcat"
@@ -20,7 +19,10 @@
   ],
 
   "provisioners" : [
-
+    {
+      "type": "shell",
+      "script": "./install.sh"
+    },
     {
       "type" : "ansible",
       "playbook_file" : "playbook/main.yml",
