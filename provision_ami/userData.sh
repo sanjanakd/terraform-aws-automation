@@ -1,9 +1,10 @@
 #! /bin/bash
 
-apt install python
+sudo su
+apt install python -y
 apt install python-pip -y
-pip install botocore -y
-pip install boto -y
+pip install botocore
+pip install boto3
 
 cd
 mkdir myApp

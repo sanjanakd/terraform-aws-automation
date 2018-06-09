@@ -105,8 +105,6 @@ resource "aws_security_group" "elb" {
   tags {
     Name = "WebAppELB"
   }
-
   vpc_id = "${data.aws_subnet.public_a.vpc_id}"
   depends_on = ["aws_autoscaling_group.selfdistructsg"]
-
 }

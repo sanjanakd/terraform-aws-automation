@@ -25,3 +25,8 @@ data "aws_subnet" "public_b" {
     values = ["${var.subnet_tag_value}_B"]
   }
 }
+
+
+data "aws_iam_instance_profile" "role_pro" {
+  name = "test_profile"
+}

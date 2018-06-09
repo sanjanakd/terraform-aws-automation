@@ -1,6 +1,7 @@
 resource "aws_launch_configuration" "selfdistruct" {
   image_id = "${data.aws_ami.ubuntu.id}"
   instance_type = "${var.instance_type}"
+  iam_instance_profile = "${data.aws_iam_instance_profile.role_pro.name}"
   security_groups = [
     "${aws_security_group.destory_sg.id}"]
   key_name = "${aws_key_pair.destroyerkey.id}"
