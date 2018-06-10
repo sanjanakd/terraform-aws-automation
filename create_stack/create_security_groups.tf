@@ -75,6 +75,8 @@ resource "aws_security_group" "destory_sg" {
   tags {
     Name = "destroySG"
   }
+ # depends_on = ["aws_autoscaling_group.selfdistructsg"]
+
 }
 
 

@@ -31,3 +31,11 @@ data "aws_iam_instance_profile" "role_pro" {
   name = "test_profile"
 }
 
+data "aws_instance" "destroyInstance" {
+  #instance_id = "i-instanceid"
+
+  filter {
+    name   = "tag:Name"
+    values = ["mySelfDistructInstace"]
+  }
+}

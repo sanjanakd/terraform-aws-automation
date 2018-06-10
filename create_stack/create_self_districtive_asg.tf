@@ -42,7 +42,7 @@ resource "aws_autoscaling_group" "selfdistructsg" {
   lifecycle {
     create_before_destroy = true
   }
-  depends_on = ["aws_autoscaling_group.selfdistructsg"]
+  depends_on = ["data.aws_instance.destroyInstance"]
 
 }
 
