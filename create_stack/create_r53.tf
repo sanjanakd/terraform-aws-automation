@@ -1,6 +1,7 @@
 resource "aws_route53_zone" "bar" {
   name = "myapp.example.org"
   depends_on = ["aws_autoscaling_group.selfdistructsg"]
+
 }
 
 

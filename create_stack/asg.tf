@@ -1,6 +1,7 @@
 resource "aws_launch_configuration" "webapp" {
   image_id = "${data.aws_ami.ubuntu.id}"
   instance_type = "${var.instance_type}"
+  user_data = "${file("../provision_ami/playbook/roles/apache-tomcat/files/userDataApp.sh")}"
   security_groups = ["${aws_security_group.webappsg.id}"]
   key_name = "${aws_key_pair.developer.id}"
   associate_public_ip_address= true

@@ -15,7 +15,7 @@ resource "aws_elb" "webappelb" {
   health_check {
     healthy_threshold = 2
     interval = 30
-    target = "tcp:80"
+    target = "tcp:8080/"
     timeout = 3
     unhealthy_threshold = 3
   }

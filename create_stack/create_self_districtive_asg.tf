@@ -42,7 +42,6 @@ resource "aws_autoscaling_group" "selfdistructsg" {
   lifecycle {
     create_before_destroy = true
   }
-  depends_on = ["data.aws_instance.destroyInstance"]
 
 }
 
@@ -53,7 +52,7 @@ resource "aws_autoscaling_schedule" "destory_scheduler" {
   //  max_size = 1
   desired_capacity = 0
   //  recurrence = "0 10 * * SAT"
-  start_time = "${timeadd(timestamp(), "5m")}"
+  start_time = "${timeadd(timestamp(), "20m")}"
   end_time = "${timeadd(timestamp(), "10m")}"
   //  end_time = "2018-06-6T11:38:00Z"
 

@@ -99,3 +99,24 @@
 
 - name: Changing perm of "/home/ubuntu/userData.sh", adding "+x"
   file: dest=/home/ubuntu/userData.sh mode=a+x
+
+- name: Creates test appl directory
+  file:
+   path: "{{item}}"
+   state: directory
+  with_items:
+     - /home/ubuntu/serving_static
+     - /home/ubuntu/serving_static/templates
+
+- name: copy user data script on instance
+  copy:
+    src: serve.py
+    dest: /home/ubuntu/serving_static/serve.py
+
+- name: copy user data script on instance
+  copy:
+    src: index.html
+    dest: /home/ubuntu/serving_static/templates/index.html
+
+- name: Changing perm of "/home/ubuntu/serve.py", adding "+x"
+  file: dest=/home/ubuntu/serving_static/serve.py mode=a+x
