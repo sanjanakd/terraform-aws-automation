@@ -6,7 +6,7 @@ resource "aws_elb" "webappelb" {
   security_groups = ["${aws_security_group.elb.id}"]
 
   listener {
-    instance_port = 80
+    instance_port = 8080
     instance_protocol = "http"
     lb_port = 80
     lb_protocol = "http"
@@ -15,7 +15,7 @@ resource "aws_elb" "webappelb" {
   health_check {
     healthy_threshold = 2
     interval = 30
-    target = "tcp:8080/"
+    target = "HTTP:8080/"
     timeout = 3
     unhealthy_threshold = 3
   }
