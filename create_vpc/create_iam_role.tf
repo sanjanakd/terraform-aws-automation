@@ -35,7 +35,7 @@ resource "aws_iam_role_policy" "default_ecs_service_role_policy" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
+       {
             "Action": "ec2:*",
             "Effect": "Allow",
             "Resource": "*"

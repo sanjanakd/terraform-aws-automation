@@ -56,3 +56,19 @@ variable "subnet_cidr_b" {
 }
 
 
+variable "DBRemoteStateBucket" {
+  default = "stack-creation-state"
+}
+
+variable "DBRemoteStateKey" {
+  type = "map"
+  default = {
+    dev = "myapp/dev/terraform.tfstate"
+    prod = "myapp/prod/terraform.tfstate"
+  }
+}
+
+variable "environment" {
+  description = "Please enter your environment : dev, prod"
+  default = "dev"
+}

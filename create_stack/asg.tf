@@ -32,7 +32,8 @@ resource "aws_autoscaling_group" "webappscale" {
     },
     {
       key                 = "name"
-      value               = "myAppInstance"
+      value               = "myAppInstance_${var.environment}"
+//      value               = "myAppInstance"
       propagate_at_launch = "true"
 
     }

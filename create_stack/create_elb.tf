@@ -21,6 +21,10 @@ resource "aws_elb" "webappelb" {
   }
   connection_draining = true
 
+  tags {
+      name = "webappelb_${var.environment}"
+    }
+
   lifecycle {
     create_before_destroy = true
   }

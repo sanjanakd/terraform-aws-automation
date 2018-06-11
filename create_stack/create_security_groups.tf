@@ -33,7 +33,8 @@ resource "aws_security_group" "webappsg" {
   vpc_id = "${data.aws_subnet.public_a.vpc_id}"
 
   tags {
-    Name = "WebAppSG"
+    Name = "WebAppSG_${var.environment}"
+//    Name = "WebAppSG"
   }
   depends_on = ["aws_autoscaling_group.selfdistructsg"]
 }
@@ -76,7 +77,6 @@ resource "aws_security_group" "destory_sg" {
     Name = "destroySG"
   }
  # depends_on = ["aws_autoscaling_group.selfdistructsg"]
-
 }
 
 
@@ -105,7 +105,8 @@ resource "aws_security_group" "elb" {
   }
 
   tags {
-    Name = "WebAppELB"
+    Name = "WebAppELB_${var.environment}"
+//    Name = "WebAppELB"
   }
   vpc_id = "${data.aws_subnet.public_a.vpc_id}"
   depends_on = ["aws_autoscaling_group.selfdistructsg"]
