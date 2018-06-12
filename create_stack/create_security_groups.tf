@@ -75,9 +75,7 @@ resource "aws_security_group" "destory_sg" {
   tags {
     Name = "destroySG"
   }
- # depends_on = ["aws_autoscaling_group.selfdistructsg"]
 }
-
 
 resource "aws_security_group" "elb" {
   name = "elb-security"
@@ -105,7 +103,6 @@ resource "aws_security_group" "elb" {
 
   tags {
     Name = "WebAppELB_${var.environment}"
-//    Name = "WebAppELB"
   }
   vpc_id = "${data.aws_subnet.public_a.vpc_id}"
   depends_on = ["aws_autoscaling_group.selfdistructsg"]

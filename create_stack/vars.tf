@@ -14,10 +14,6 @@ variable "filter_ami" {
   default = "apache-tomcat-"
 }
 
-//variable "vpc_id" {
-//  default = "vpc-f00e7588"
-//}
-
 variable "availability-zones" {
   default = [
     "us-east-1a",
@@ -73,8 +69,7 @@ variable "environment" {
   default = "dev"
 }
 
-
 variable "stack-ttl" {
   description = "Please enter ttl for your stack"
-  default = "60m"
+  default = "2"
 }

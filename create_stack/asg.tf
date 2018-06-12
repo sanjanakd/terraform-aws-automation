@@ -21,7 +21,6 @@ resource "aws_autoscaling_group" "webappscale" {
   desired_capacity = 2
   load_balancers = ["${aws_elb.webappelb.name}"]
   vpc_zone_identifier = ["${data.aws_subnet.public_a.id}", "${data.aws_subnet.public_b.id}"]
- # health_check_type = "ELB"
 
   tag = [
     {
@@ -33,7 +32,6 @@ resource "aws_autoscaling_group" "webappscale" {
     {
       key                 = "name"
       value               = "myAppInstance_${var.environment}"
-//      value               = "myAppInstance"
       propagate_at_launch = "true"
 
     }
@@ -42,7 +40,7 @@ resource "aws_autoscaling_group" "webappscale" {
   lifecycle {
     create_before_destroy = true
   }
-  depends_on = ["aws_autoscaling_group.selfdistructsg"]
+   depends_on = ["aws_autoscaling_group.selfdistructsg"]
 }
 
 

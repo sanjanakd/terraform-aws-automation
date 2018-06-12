@@ -17,10 +17,6 @@ variable "filter_ami" {
   default = "apache-tomcat-"
 }
 
-//variable "vpc_id" {
-//  default = "vpc-f00e7588"
-//}
-
 variable "availability-zones" {
   default = [
     "us-east-1a",

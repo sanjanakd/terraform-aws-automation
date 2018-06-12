@@ -13,14 +13,11 @@ resource "aws_iam_instance_profile" "hook_profile" {
   role = "${aws_iam_role.hook_role.id}"
 }
 
-
-
 resource "aws_iam_role_policy" "service_role_policy" {
   name = "service-role-policy"
   role = "${aws_iam_role.role.id}"
   policy = "${file("test-role-policy.json")}"
 }
-
 
 resource "aws_iam_role_policy" "destory_stack_role_policy" {
   name = "destroy-service-role-policy"
@@ -33,8 +30,6 @@ resource "aws_iam_role_policy" "hook_role_policy" {
   role = "${aws_iam_role.hook_role.id}"
   policy = "${file("test-hook-role-policy.json")}"
 }
-
-
 
 resource "aws_iam_role" "role" {
   name = "test_role"
@@ -58,7 +53,6 @@ resource "aws_iam_role" "role" {
 EOF
 
 }
-
 
 resource "aws_iam_role" "destroy_role" {
   name = "test_destory_role"
@@ -102,6 +96,5 @@ resource "aws_iam_role" "hook_role" {
     ]
 }
 EOF
-
 
 }

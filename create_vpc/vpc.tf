@@ -10,10 +10,6 @@ resource "aws_internet_gateway" "default" {
   vpc_id = "${aws_vpc.default.id}"
 }
 
-/*
-Setup public Subnets
-*/
-
 resource "aws_subnet" "zone-a" {
   cidr_block = "${var.subnet_cidr_a}"
   vpc_id = "${aws_vpc.default.id}"

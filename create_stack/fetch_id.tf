@@ -25,7 +25,6 @@ data "aws_subnet" "public_b" {
   }
 }
 
-
 data "aws_iam_instance_profile" "role_pro" {
   name = "test_profile"
 }

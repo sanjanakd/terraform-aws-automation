@@ -39,7 +39,6 @@ resource "aws_autoscaling_group" "selfdistructsg" {
   lifecycle {
     create_before_destroy = true
   }
-
 }
 
 resource "aws_autoscaling_schedule" "destory_scheduler" {
@@ -59,5 +58,4 @@ resource "aws_autoscaling_lifecycle_hook" "on_terminate_hook" {
   lifecycle_transition = "autoscaling:EC2_INSTANCE_TERMINATING"
   notification_target_arn = "${aws_sqs_queue.destroyer_queue.arn}"
   role_arn = "arn:aws:iam::014279457395:role/hook_role"
-  # role_arn = "${data.aws_iam_instance_profile.hook_pro.arn}"
 }
