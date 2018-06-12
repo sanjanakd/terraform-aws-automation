@@ -1,0 +1,120 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "ec2:*",
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "elasticloadbalancing:*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "cloudwatch:*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "autoscaling:*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "iam:AWSServiceName": [
+            "autoscaling.amazonaws.com",
+            "ec2scheduled.amazonaws.com",
+            "elasticloadbalancing.amazonaws.com",
+            "spot.amazonaws.com",
+            "spotfleet.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Action": [
+        "sqs:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListAllMyBuckets",
+        "s3:HeadBucket"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "VisualEditor1",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::stack-creation-state"
+    },
+    {
+      "Sid": "1234444",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:DeleteMessage",
+        "sqs:GetQueueUrl",
+        "sqs:ListQueues",
+        "sqs:ChangeMessageVisibility",
+        "sqs:SendMessageBatch",
+        "sqs:UntagQueue",
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueueTags",
+        "sqs:TagQueue",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:DeleteMessageBatch",
+        "sqs:PurgeQueue",
+        "sqs:DeleteQueue",
+        "sqs:CreateQueue",
+        "sqs:ChangeMessageVisibilityBatch",
+        "sqs:SetQueueAttributes"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:*",
+        "route53domains:*",
+        "cloudfront:ListDistributions",
+        "elasticloadbalancing:DescribeLoadBalancers",
+        "elasticbeanstalk:DescribeEnvironments",
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:GetBucketWebsite",
+        "ec2:DescribeVpcs",
+        "ec2:DescribeRegions",
+        "sns:ListTopics",
+        "sns:ListSubscriptionsByTopic",
+        "cloudwatch:DescribeAlarms",
+        "cloudwatch:GetMetricStatistics"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:GenerateCredentialReport",
+        "iam:GenerateServiceLastAccessedDetails",
+        "iam:Get*",
+        "iam:List*",
+        "iam:SimulateCustomPolicy",
+        "iam:SimulatePrincipalPolicy"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

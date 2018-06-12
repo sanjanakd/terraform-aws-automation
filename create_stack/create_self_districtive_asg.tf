@@ -21,9 +21,6 @@ resource "aws_autoscaling_group" "selfdistructsg" {
     "${data.aws_subnet.public_b.id}"]
   max_size = 1
   min_size = 1
-
-  //  desired_capacity = 1
-
   tag = [
     {
       key = "Name"
@@ -49,13 +46,9 @@ resource "aws_autoscaling_schedule" "destory_scheduler" {
   scheduled_action_name = "destroyer"
   autoscaling_group_name = "${aws_autoscaling_group.selfdistructsg.name}"
   min_size = 0
-  //  max_size = 1
   desired_capacity = 0
-  //  recurrence = "0 10 * * SAT"
   start_time = "${timeadd(timestamp(), "20m")}"
   end_time = "${timeadd(timestamp(), "40m")}"
-  //  end_time = "2018-06-6T11:38:00Z"
-
 }
 
 resource "aws_autoscaling_lifecycle_hook" "on_terminate_hook" {
@@ -66,4 +59,5 @@ resource "aws_autoscaling_lifecycle_hook" "on_terminate_hook" {
   lifecycle_transition = "autoscaling:EC2_INSTANCE_TERMINATING"
   notification_target_arn = "${aws_sqs_queue.destroyer_queue.arn}"
   role_arn = "arn:aws:iam::014279457395:role/hook_role"
+  # role_arn = "${data.aws_iam_instance_profile.hook_pro.arn}"
 }

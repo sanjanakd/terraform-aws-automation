@@ -1,4 +1,3 @@
-
 data "aws_availability_zones" "available" {}
 
 data "aws_ami" "ubuntu" {
@@ -31,3 +30,10 @@ data "aws_iam_instance_profile" "role_pro" {
   name = "test_profile"
 }
 
+data "aws_iam_instance_profile" "destroy_pro" {
+  name = "test_destroy_profile"
+}
+
+data "aws_iam_instance_profile" "hook_pro" {
+  name = "test_hook_profile"
+}

@@ -34,7 +34,6 @@ resource "aws_security_group" "webappsg" {
 
   tags {
     Name = "WebAppSG_${var.environment}"
-//    Name = "WebAppSG"
   }
   depends_on = ["aws_autoscaling_group.selfdistructsg"]
 }

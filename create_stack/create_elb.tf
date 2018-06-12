@@ -1,4 +1,3 @@
-
 resource "aws_elb" "webappelb" {
   name = "webapp-elb"
 
@@ -8,8 +7,11 @@ resource "aws_elb" "webappelb" {
   listener {
     instance_port = 8080
     instance_protocol = "http"
-    lb_port = 80
-    lb_protocol = "http"
+    #lb_port = 80
+    lb_port = 443
+    #lb_protocol = "http"
+    lb_protocol = "https"
+    ssl_certificate_id = "${aws_iam_server_certificate.test_cert.arn}"
   }
 
   health_check {
@@ -22,8 +24,8 @@ resource "aws_elb" "webappelb" {
   connection_draining = true
 
   tags {
-      name = "webappelb_${var.environment}"
-    }
+    name = "webappelb_${var.environment}"
+  }
 
   lifecycle {
     create_before_destroy = true
