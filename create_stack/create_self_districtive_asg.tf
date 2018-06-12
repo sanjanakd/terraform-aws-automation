@@ -47,8 +47,8 @@ resource "aws_autoscaling_schedule" "destory_scheduler" {
   autoscaling_group_name = "${aws_autoscaling_group.selfdistructsg.name}"
   min_size = 0
   desired_capacity = 0
-  start_time = "${timeadd(timestamp(), "20m")}"
-  end_time = "${timeadd(timestamp(), "40m")}"
+  start_time = "${timeadd(timestamp(), "${var.stack-ttl}h")}"
+  end_time = "${timeadd(timestamp(), "${var.stack-ttl+30}h")}"
 }
 
 resource "aws_autoscaling_lifecycle_hook" "on_terminate_hook" {

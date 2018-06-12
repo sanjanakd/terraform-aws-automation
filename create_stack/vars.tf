@@ -72,3 +72,9 @@ variable "environment" {
   description = "Please enter your environment : dev, prod"
   default = "dev"
 }
+
+
+variable "stack-ttl" {
+  description = "Please enter ttl for your stack"
+  default = "60m"
+}
