@@ -16,13 +16,13 @@ if [ ${TERRAFORM_ACTION} == "apply" ]; then
 
 cd create_stack &&
      terraform init -backend-config='key='${TF_VAR_environment}'/terraform.tfstate'
-     terraform apply -var 'environment='${TF_VAR_environment}
+     terraform apply -auto-approve -var 'environment='${TF_VAR_environment}
 
 elif [ ${TERRAFORM_ACTION} == "destroy" ]; then
 
 cd create_stack &&
      terraform init -backend-config='key='${TF_VAR_environment}'/terraform.tfstate'
-     terraform destroy -var 'environment='${TF_VAR_environment}
+     terraform destroy -auto-approve -var 'environment='${TF_VAR_environment}
 
 else
      echo "invalid option"
