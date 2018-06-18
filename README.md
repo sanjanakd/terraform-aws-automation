@@ -9,7 +9,7 @@ This automation is supported for ubuntu only.
 This project is divided into 3 parts -
 1. Provision an AMI using packer and Ansible which has apache tomcat, java8, terraform, python and one sample flask application.
 2. Create VPC/IAM with subnet using terraform.
-3. and create stack using terraform which creates Security groups, Autoscaling groups with 2 EC2 instance, ELB and route53.
+3. and create stack using terraform which creates Security groups, Auto scaling groups with 2 EC2 instance, ELB and route53.
 
 
 Prerequisites :
@@ -73,9 +73,9 @@ Execute :
 
 	create_stack  directory has terraform script to create -
 	1. Security Groups
-	2. Launch Configuration & Autoscaling Group
-	3. Launch configuration and self distructive Autoscaling group
-	4. Elastic Load balancer
+	2. Launch Configuration & Auto scaling Group
+	3. Launch configuration and self destructive Auto scaling group
+	4. Elastic Load Balancer
 	5. Route53
 
 Running Terraform:
@@ -96,28 +96,29 @@ To create stack in dev or prod environment, you can directly execute shell scrip
 Auto Destruction:
 ------------------
 
-The stack we created earlier will be destroyed automatically after the ttl expiration. We provided ttl while creating the     stack as 3rd argument.
+The stack we created earlier will be destroyed automatically after the ttl expiration, we provided ttl while creating the     stack as 3rd argument.
 
-Here is how auto destruction works:
 
 To auto destroy the stack, I created couple of following extra resources along with the stack.
 
 1. Auto scaling group with min and max size to 1. (Destroyer ASG)
 2. An EC2 instance with SQS poller in user data script.
 3. Life cycle hook on instance termination.
-4. SQS queue to recieve ASG lifecyle notificaion.
+4. SQS queue to receive ASG lifecycle notification.
 5. A scheduler using TTL to scale in ASG to desired size 0.
 
-  When auto scaling group scales in because of the scheuler we created, it will terminate the instance to achive the desired size. This will trigger the lifecycle hook to put ec2 instance in waiting state. The Lifecycle hook is configured to send notifcation to SQS regarding termination. As instance terminates, lifecycle hook will send an notification to SQS and puts the EC2 into waiting state.
+Here is how auto destruction works:
 
-As I said earlier, the ec2 has a SQS poller watching the SQS quque, poller script reads the notification from SQS and triggers the destroy.sh script. As ec2 is in waiting state, destroy.sh script will destroy the stack. The only thing that should be left behind is the Destroyer auto scaling group.
+  When auto scaling group scales in because of the scheduler we created, it will terminate the instance to archive the desired size. This will trigger the lifecycle hook to put ec2 instance in waiting state. The Lifecycle hook is configured to send notifcation to SQS regarding termination. As instance terminates, lifecycle hook will send an notification to SQS and puts the EC2 into waiting state.
+
+As I said earlier, the ec2 has a SQS poller watching the SQS Queue, poller script reads the notification from SQS and triggers the destroy.sh script. As ec2 is in waiting state, destroy.sh script will destroy the stack. The only thing that should be left behind is the Destroyer auto scaling group.
 
 
 
 
 Test: 
 --------
-To check if stack is up, caputure the elb DNS and replace it in following url. You should see "Hello World".
+To check if stack is up, capture the elb DNS and replace it in following url. You should see "Hello World".
 (You might see cert ERROR as I used self signed certificates but click on "Advanced and proceed to" to see the output)
 
 https://elbDNS:443
